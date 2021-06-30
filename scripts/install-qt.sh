@@ -274,6 +274,7 @@ function compute_url(){
             # New repository format (>=6.0.0)
             "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
             "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
+            "qt6_${VERSION//./}/qt.qt6.${VERSION//./}.addons.${COMPONENT}.${TOOLCHAIN}"
             "qt6_${VERSION//./}_${ANDROID_ARCH}/qt.qt6.${VERSION//./}.${TOOLCHAIN}"
             "qt6_${VERSION//./}_${ANDROID_ARCH}/qt.qt6.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
             # New repository format (>=5.9.6)
@@ -286,7 +287,9 @@ function compute_url(){
             "qt5_${VERSION//./}/qt.${VERSION//./}.${TOOLCHAIN}"
             "qt5_${VERSION//./}/qt.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
         )
-
+        if [ "${COMPONENT}" == "qtpositioning" ]; then
+          COMPONENT="qtlocation"
+        fi
         for REMOTE_BASE in ${REMOTE_BASES[*]}; do
             REMOTE_PATH="$(${CURL} ${BASE_URL}/${REMOTE_BASE}/ | grep -o -E "[[:alnum:]_.\-]*7z" | grep "${COMPONENT}" | tail -1)"
             if [ ! -z "${REMOTE_PATH}" ]; then
