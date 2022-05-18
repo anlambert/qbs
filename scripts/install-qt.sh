@@ -287,9 +287,6 @@ function compute_url(){
             "qt5_${VERSION//./}/qt.${VERSION//./}.${TOOLCHAIN}"
             "qt5_${VERSION//./}/qt.${VERSION//./}.${COMPONENT}.${TOOLCHAIN}"
         )
-        if [ "${COMPONENT}" == "qtpositioning" ]; then
-          COMPONENT="qtlocation"
-        fi
         for REMOTE_BASE in ${REMOTE_BASES[*]}; do
             REMOTE_PATH="$(${CURL} ${BASE_URL}/${REMOTE_BASE}/ | grep -o -E "[[:alnum:]_.\-]*7z" | grep "${COMPONENT}" | tail -1)"
             if [ ! -z "${REMOTE_PATH}" ]; then
